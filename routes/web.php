@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -23,6 +26,7 @@ Route::get('/blog-details', function () {
 Route::prefix('admin')->group(function(){
     Route::resource('news',NewsController::class);
     Route::resource('contacts',ContactController::class);
+    Route::resource('users', UserController::class);
 });
 
 Route::get('/dashboard', function () {
