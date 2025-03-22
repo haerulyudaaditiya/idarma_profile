@@ -1,3 +1,0 @@
-<div>
-        side
-    </div>
