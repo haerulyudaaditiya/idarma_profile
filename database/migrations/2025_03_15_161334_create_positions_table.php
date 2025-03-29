@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name_position')->unique();
             $table->string('serial')->unique();
-            $table->string('structure')->null();
+            $table->string('structure')->nullable();
             $table->timestamps();
         });
     }

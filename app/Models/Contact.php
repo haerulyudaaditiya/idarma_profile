@@ -2,26 +2,27 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class Contact extends Model
 {
-    use HasUuids;
-    protected $guarded=[];
-    public function Index(){
-        return $this->clatest();
-    }
-    public function Store($data){
-        return $this->create($data);
-    }
-    public function Show($id){
-        return $this->find($id);
-    }
-    public function Edit($id, $data){
-        return $this->find($id)->update($data);
-    }
-    public function Trash($id){
-        return $this->find($id)->delete();
+    use HasFactory, HasUuids;
+
+    protected $keyType = 'string';
+    public $incrementing = false;
+
+    protected $fillable = [
+        'service_id',
+        'name',
+        'email',
+        'telp',
+        'message',
+    ];
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
     }
 }

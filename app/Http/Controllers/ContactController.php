@@ -3,102 +3,54 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ContactController extends Controller
 {
-    protected $contact;
-    public function __construct(Contact $contact)
-    {
-        $this->contact=$contact;
-    }
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return view('contact.index',[
-            'data'=>$this->contact->Index()
-        ]);
+        $contacts = Contact::with('service')->latest()->get();
+        return view('contacts.index', compact('contacts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $services = Service::all();
+        return view('contacts.create', compact('services'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required|max:225',
-            'email'=>'required|email|max:225',
-            'telp'=>'required|numeric|max:20',
-            'subject'=>'required',
-            'message'=>'required|max:225'
+            'service_id' => 'required|exists:services,id',
+            'name'       => 'required|string|max:255',
+            'email'      => 'required|email|max:255',
+            'telp'       => 'required|string|max:20',
+            'message'    => 'required|string|max:255',
         ]);
-        $this->contact->Store([
-            'service_id'=>$request->subject,
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'telp'=>$request->telp,
-            'message'=>$request->message
+
+        Contact::create([
+            'id'         => Str::uuid(),
+            'service_id' => $request->service_id,
+            'name'       => $request->name,
+            'email'      => $request->email,
+            'telp'       => $request->telp,
+            'message'    => $request->message,
         ]);
-        return back()->with('success','Pesan anda telah di kirim');
+
+        return redirect()->to('/#contact')->with('success', 'Pesan berhasil dikirim.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
+    public function destroy(Contact $contact)
     {
-        return view('contact.show',[
-            'data'=>$this->contact->Show($id)
-        ]);
+        $contact->delete();
+        return redirect()->route('contacts.index')->with('success', 'Pesan berhasil dihapus.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Contact $contact)
+    public function show(Contact $contact)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name'=>'required|max:225',
-            'email'=>'required|email|max:225',
-            'telp'=>'required|numeric|max:20',
-            'subject'=>'required',
-            'message'=>'required|max:225'
-        ]);
-        $data = [
-            'service_id'=>$request->subject,
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'telp'=>$request->telp,
-            'message'=>$request->message
-        ];
-        $this->contact->Edit($id,$data);
-        return back()->with('success','Pesan anda telah di kirim');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        $this->contact->Trash($id);
-        return back()->with('success','Pesan anda telah di kirim');
+        return view('contacts.show', compact('contact'));
     }
 }

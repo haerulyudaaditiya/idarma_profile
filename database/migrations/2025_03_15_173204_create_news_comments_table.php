@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('news_comments', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('news_id')->references('id')->on('news')->onDelete('cascade');
+            $table->foreignUuid('news_id')->constrained('news')->onDelete('cascade');
             $table->string('name');
-            $table->string('comment');
+            $table->text('comment');
+            $table->foreignUuid('parent_id')->nullable()->constrained('news_comments')->onDelete('cascade');
             $table->timestamps();
         });
     }

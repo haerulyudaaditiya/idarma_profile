@@ -3,63 +3,41 @@
 namespace App\Http\Controllers;
 
 use App\Models\NewsComment;
+use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class NewsCommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'news_id' => 'required|exists:news,id',
+            'name' => 'required|string|max:255',
+            'comment' => 'required|string|max:1000',
+            'parent_id' => 'nullable|exists:news_comments,id',
+        ]);
+
+        NewsComment::create([
+            'id' => Str::uuid(),
+            'news_id' => $request->news_id,
+            'name' => $request->name,
+            'comment' => $request->comment,
+            'parent_id' => $request->parent_id,
+        ]);
+
+        return redirect()->back()->with('success', 'Komentar berhasil dikirim.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(NewsComment $newsComment)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(NewsComment $newsComment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, NewsComment $newsComment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(NewsComment $newsComment)
     {
-        //
+        // Hapus juga reply-nya (jika ada)
+        foreach ($newsComment->replies as $reply) {
+            $reply->delete();
+        }
+
+        $newsComment->delete();
+
+        return redirect()->back()->with('success', 'Komentar berhasil dihapus.');
     }
 }

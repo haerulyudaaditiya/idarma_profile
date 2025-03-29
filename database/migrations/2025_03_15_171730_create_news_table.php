@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('news', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('news_category_id')->references('id')->on('news_categories')->onDelete('cascade');
-            $table->foreignUuid('news_tag_id')->references('id')->on('news_tags')->onDelete('cascade');
+            $table->foreignUuid('news_category_id')->constrained('news_categories')->onDelete('cascade');
             $table->string('title')->unique();
-            $table->string('content', 10000);
+            $table->text('content');
             $table->string('cover');
             $table->timestamps();
         });
@@ -30,3 +29,4 @@ return new class extends Migration
         Schema::dropIfExists('news');
     }
 };
+
