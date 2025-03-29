@@ -101,17 +101,4 @@
             "responsive": true,
         });
     });
-
-    $(document).ready(function() {
-        setInterval(function() {
-            $('#report').load("layouts/admin/banner.php", function() {
-                // Pasang ulang event handler setelah konten dimuat
-                $('a').off('click').on('click', function(e) {
-                    // Misalnya, bisa menambahkan logika klik di sini
-                    // Misalnya, prevent default jika perlu
-                    console.log("Link clicked!");
-                });
-            });
-        }, 2000); // Anda bisa menyesuaikan interval waktu
-    });
 </script>
