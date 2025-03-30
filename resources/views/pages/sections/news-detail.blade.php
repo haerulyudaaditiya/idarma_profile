@@ -25,88 +25,92 @@
 
                 <!-- Blog Details -->
                 <section id="blog-details" class="blog-details section">
-                    <article class="article">
+                    <div class="container">
+                        <article class="article">
 
-                        <div class="post-img">
-                            <img src="{{ asset('storage/' . $news->cover) }}" alt="{{ $news->title }}" class="img-fluid">
-                        </div>
+                            <div class="post-img">
+                                <img src="{{ asset('storage/' . $news->cover) }}" alt="{{ $news->title }}"
+                                    class="img-fluid">
+                            </div>
 
-                        <h2 class="title">{{ $news->title }}</h2>
+                            <h2 class="title">{{ $news->title }}</h2>
 
-                        <div class="meta-top">
-                            <ul>
-                                <li><i class="bi bi-folder"></i> {{ $news->category->name_category ?? '-' }}</li>
-                                <li><i class="bi bi-clock"></i> <time
-                                        datetime="{{ $news->created_at }}">{{ $news->created_at->format('d M Y') }}</time>
-                                </li>
-                                <li><i class="bi bi-chat-dots"></i> {{ $news->comments->count() }} Komentar</li>
-                            </ul>
-                        </div>
+                            <div class="meta-top">
+                                <ul>
+                                    <li><i class="bi bi-folder"></i> {{ $news->category->name_category ?? '-' }}</li>
+                                    <li><i class="bi bi-clock"></i> <time
+                                            datetime="{{ $news->created_at }}">{{ $news->created_at->format('d M Y') }}</time>
+                                    </li>
+                                    <li><i class="bi bi-chat-dots"></i> {{ $news->comments->count() }} Komentar</li>
+                                </ul>
+                            </div>
 
-                        <div class="content">
-                            {!! $news->content !!}
-                        </div>
+                            <div class="content">
+                                {!! $news->content !!}
+                            </div>
 
-                        <div class="meta-bottom mt-4">
-                            <i class="bi bi-tags"></i>
-                            <ul class="tags">
-                                @foreach ($news->tags as $tag)
-                                    <li>{{ $tag->name_tag }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
+                            <div class="meta-bottom mt-4">
+                                <i class="bi bi-tags"></i>
+                                <ul class="tags">
+                                    @foreach ($news->tags as $tag)
+                                        <li>{{ $tag->name_tag }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
 
-                    </article>
+                        </article>
+                    </div>
                 </section>
 
                 <!-- Blog Comments Section -->
                 <section id="blog-comments" class="blog-comments section">
-                    <div class="container">
+                    <div class="container"">
                         <h4 class="comments-count">{{ $news->comments->count() }} Komentar</h4>
 
                         {{-- Komentar Utama --}}
                         @foreach ($news->comments->whereNull('parent_id') as $comment)
-                            <div class="comment mb-4">
-                                <div class="d-flex">
-                                    <div>
-                                        <h5>
+                            <div class="comment py-2 border-bottom" style="border-color: #ddd;">
+                                <div class="d-flex align-items-start">
+                                    <div class="comment-img me-3">
+                                        <img src="{{ asset('assets/img/team/user.png') }}" alt="avatar"
+                                            style="width: 42px; height: 42px; object-fit: cover; border-radius: 50%;">
+                                    </div>
+                                    <div class="w-100">
+                                        <h6 class="mb-1">
                                             <strong>{{ $comment->name }}</strong>
-                                            <a href="#comment-form" class="reply"
-                                                onclick="setReply('{{ $comment->id }}')">
+                                            <a href="#comment-form" class="reply ms-2 "
+                                                onclick="document.getElementById('parent_id').value = '{{ $comment->id }}'">
                                                 <i class="bi bi-reply-fill"></i> Reply
                                             </a>
-                                        </h5>
-                                        <time
-                                            datetime="{{ $comment->created_at }}">{{ $comment->created_at->format('d M Y') }}</time>
-                                        <p>{{ $comment->comment }}</p>
+                                        </h6>
+                                        <small
+                                            class="text-muted d-block mb-1">{{ $comment->created_at->format('d M Y') }}</small>
+                                        <p class="mb-1">{{ $comment->comment }}</p>
                                     </div>
                                 </div>
 
                                 {{-- Balasan --}}
                                 @foreach ($comment->replies as $reply)
-                                    <div class="comment comment-reply mt-3 ms-4">
-                                        <div class="d-flex">
-                                            <div>
-                                                <h5>
-                                                    <strong>{{ $reply->name }}</strong>
-                                                    <a href="#comment-form" class="reply"
-                                                        onclick="setReply('{{ $comment->id }}')">
-                                                        <i class="bi bi-reply-fill"></i> Reply
-                                                    </a>
-                                                </h5>
-                                                <time
-                                                    datetime="{{ $reply->created_at }}">{{ $reply->created_at->format('d M Y') }}</time>
-                                                <p>{{ $reply->comment }}</p>
+                                    <div class="comment comment-reply ms-5 ps-2 mt-3 border-top pt-2"
+                                        style="border-color: #eee;">
+                                        <div class="d-flex align-items-start">
+                                            <div class="comment-img me-3">
+                                                <img src="{{ asset('assets/img/team/user.png') }}" alt="avatar"
+                                                    style="width: 36px; height: 36px; object-fit: cover; border-radius: 50%;">
+                                            </div>
+                                            <div class="w-100">
+                                                <h6 class="mb-1"><strong>{{ $reply->name }}</strong></h6>
+                                                <small
+                                                    class="text-muted d-block mb-1">{{ $reply->created_at->format('d M Y') }}</small>
+                                                <p class="mb-1">{{ $reply->comment }}</p>
                                             </div>
                                         </div>
                                     </div>
                                 @endforeach
                             </div>
                         @endforeach
-
                     </div>
                 </section>
-
 
                 <!-- Comment Form Section -->
                 <section id="comment-form" class="comment-form section">
@@ -166,7 +170,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </div>                    
+                    </div>
 
                     <!-- Tags (All, not clickable) -->
                     <div class="tags-widget widget-item">
@@ -180,7 +184,7 @@
                                 </li>
                             @endforeach
                         </ul>
-                    </div>                    
+                    </div>
 
                 </div>
             </div>
@@ -188,10 +192,9 @@
     </div>
 @endsection
 @push('scripts')
-<script>
-    function setReply(commentId) {
-        document.getElementById('parent_id').value = commentId;
-    }
-</script>
+    <script>
+        function setReply(commentId) {
+            document.getElementById('parent_id').value = commentId;
+        }
+    </script>
 @endpush
-

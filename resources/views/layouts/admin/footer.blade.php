@@ -47,10 +47,6 @@
 <script src="{{ asset('assets/adminlte/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('assets/adminlte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/2.0.0/trix.umd.min.js" integrity="sha512-bztZ+r6yoEXVhELgCGOqYfGeqj93YynBRxVokGSwuCU9oXgm6xE/NndM7k0XQkgzR9+WZ7ZJpXjkTwzUOtwA7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
-<!-- Trix JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.js"></script>
-
 <script>
     $(function() {
         $("#example1").DataTable({

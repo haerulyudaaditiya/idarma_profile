@@ -18,6 +18,15 @@ class NewsCommentController extends Controller
             'parent_id' => 'nullable|exists:news_comments,id',
         ]);
 
+        if ($request->filled('parent_id')) {
+            $parent = NewsComment::find($request->parent_id);
+
+            if ($parent && $parent->parent_id !== null) {
+                // Balasan terhadap balasan (3 tingkat) tidak diperbolehkan
+                return back()->withErrors('Balasan hanya diperbolehkan 1 tingkat.');
+            }
+        }
+
         NewsComment::create([
             'id' => Str::uuid(),
             'news_id' => $request->news_id,
