@@ -50,10 +50,4 @@
     <!-- SweetAlert2 -->
     <link rel="stylesheet"
         href="{{ asset('assets/adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
-
-    {{-- Trix Editor
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/2.0.0/trix.min.css" integrity="sha512-7VjEJxjApAW7g1KzXlo+09HqNFTRvHUq8Pqk3PvyaQjI+DjAdfTSO8W1ZHQjJJz2QMoZFPpZz9LK5gaTZxGLIQ==" crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
-
-    <!-- Trix CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.css">
 </head>

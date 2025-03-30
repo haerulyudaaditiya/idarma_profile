@@ -7,7 +7,6 @@ use App\Models\Service;
 use App\Models\Testimonial;
 use App\Models\Portfolio;
 use App\Models\News;
-use App\Models\NewsCategory;
 use App\Models\Tag;
 use App\Models\Position;
 
@@ -72,5 +71,10 @@ class HomeController extends Controller
         $allTags = Tag::all();
 
         return view('pages.sections.news-detail', compact('news', 'recentNews', 'allTags'));
+    }
+
+    public function userHome()
+    {
+        return view('pages.user-home'); // atau 'pages.beranda'
     }
 }

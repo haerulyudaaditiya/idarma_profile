@@ -60,53 +60,60 @@
 
                     <!-- Komentar Pengguna -->
                     <hr>
-                    <h5>Komentar Pengguna</h5>
+                    <h5 class="mb-3">Komentar Pengguna</h5>
 
                     @forelse ($news->comments->whereNull('parent_id') as $comment)
-                        <div class="border rounded p-3 mb-3">
-                            <strong>{{ $comment->name }}</strong>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted">
-                                    {{ $comment->created_at->format('d M Y H:i') }}
-                                </small>
-                                <form action="{{ route('news-comments.destroy', $comment->id) }}" method="POST"
-                                    class="ms-2">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-link text-danger btn-delete"
-                                        title="Hapus Komentar">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </form>
-                            </div>
-                            <p class="mb-1 mt-2">{{ $comment->comment }}</p>
-
-                            {{-- Balasan Komentar --}}
-                            @foreach ($comment->replies as $reply)
-                                <div class="ms-4 mt-2 p-2 border-start bg-light">
-                                    <strong>{{ $reply->name }}</strong>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <small class="text-muted">
-                                            {{ $reply->created_at->format('d M Y H:i') }}
-                                        </small>
-                                        <form action="{{ route('news-comments.destroy', $reply->id) }}" method="POST"
-                                            class="ms-2">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-link text-danger btn-delete"
-                                                title="Hapus Komentar Balasan">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </form>
+                        <div class="card mb-4"
+                            style="background-color: #dfdede; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);">
+                            <div class="card-body">
+                                {{-- Header Komentar --}}
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div class="d-flex flex-column">
+                                        <strong class="mb-1">{{ $comment->name }}</strong>
+                                        <small class="text-muted">{{ $comment->created_at->format('d M Y H:i') }}</small>
                                     </div>
-                                    <p class="mb-1 mt-2">{{ $reply->comment }}</p>
+                                    <form action="{{ route('news-comments.destroy', $comment->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-link text-danger p-0" title="Hapus Komentar">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
                                 </div>
-                            @endforeach
+
+                                {{-- Isi Komentar --}}
+                                <p class="mb-0">{{ $comment->comment }}</p>
+
+                                {{-- Replies --}}
+                                @foreach ($comment->replies as $reply)
+                                    <div class="card mt-3 ms-4 border-start"
+                                        style="background-color: #f8f9fa; border-left: 4px solid #dee2e6;">
+                                        <div class="card-body py-2 px-3">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <div class="d-flex flex-column">
+                                                    <strong class="mb-1">{{ $reply->name }}</strong>
+                                                    <small
+                                                        class="text-muted">{{ $reply->created_at->format('d M Y H:i') }}</small>
+                                                </div>
+                                                <form action="{{ route('news-comments.destroy', $reply->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-sm btn-link text-danger p-0"
+                                                        title="Hapus Balasan">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <p class="mb-0">{{ $reply->comment }}</p>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     @empty
                         <p class="text-muted">Belum ada komentar.</p>
                     @endforelse
-
                 </div>
 
                 <div class="card-footer">

@@ -81,8 +81,9 @@
             </a>
         </li>
 
-        <li class="nav-item has-treeview {{ request()->is('news*') || request()->is('news-categories*') || request()->is('news-tags*') ? 'menu-open' : '' }}">
-            <a href="#" class="nav-link {{ request()->is('news*') || request()->is('news-categories*') || request()->is('news-tags*') ? 'active' : '' }}">
+        {{-- Berita --}}
+        <li class="nav-item {{ request()->is('admin/news*') || request()->is('admin/news-categories*') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link {{ request()->is('admin/news*') || request()->is('admin/news-categories*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-newspaper"></i>
                 <p>
                     Berita
@@ -92,7 +93,7 @@
             <ul class="nav nav-treeview">
                 <!-- Berita -->
                 <li class="nav-item">
-                    <a href="{{ route('news.index') }}" class="nav-link {{ request()->is('news') ? 'active' : '' }}">
+                    <a href="{{ route('news.index') }}" class="nav-link {{ request()->is('admin/news') ? 'active' : '' }}">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Daftar Berita</p>
                     </a>
@@ -100,7 +101,7 @@
 
                 <!-- Kategori Berita -->
                 <li class="nav-item">
-                    <a href="{{ route('news-categories.index') }}" class="nav-link {{ request()->is('news-categories') ? 'active' : '' }}">
+                    <a href="{{ route('news-categories.index') }}" class="nav-link {{ request()->is('admin/news-categories') ? 'active' : '' }}">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Kategori Berita</p>
                     </a>
@@ -108,7 +109,7 @@
 
                 <!-- Tag Berita -->
                 <li class="nav-item">
-                    <a href="{{ route('news-tags.index') }}" class="nav-link {{ request()->is('news-tags') ? 'active' : '' }}">
+                    <a href="{{ route('news-tags.index') }}" class="nav-link {{ request()->is('admin/news-tags') ? 'active' : '' }}">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Tag Berita</p>
                     </a>
