@@ -2,9 +2,11 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>@yield('title', 'Idarma Digital Technology')</title>
-    <meta name="description" content="@yield('meta_description', '')">
-    <meta name="keywords" content="@yield('meta_keywords', '')">
+    <title>PT IDARMA DIGITAL TECHNOLOGY</title>
+    <meta name="description"
+        content="IDarma Digital adalah startup teknologi digital yang berfokus pada solusi inovatif untuk mengatasi tantangan masyarakat di era digital. Kami menyediakan layanan efektif, efisien, dan berdampak positif bagi usaha kecil, usaha besar, dan masyarakat luas.">
+    <meta name="keywords"
+        content="IDarma Digital, Startup Teknologi, Solusi Digital, Inovasi Digital, Layanan Teknologi, Digitalisasi UMKM, Digitalisasi Bisnis, Transformasi Digital, Teknologi untuk Masyarakat, Solusi Inovatif, Era Digital">
 
     <!-- Favicons -->
     <link href="{{ asset('assets/img/logo_idtech.png') }}" rel="icon">
@@ -44,17 +46,17 @@
             <nav id="navmenu" class="navmenu">
                 <ul>
                     <li><a href="{{ url('/') }}#hero">Home</a></li>
-                    <li><a href="{{ url('/') }}#vision-mission">Vision & Mission</a></li>
-                    <li><a href="{{ url('/') }}#services">Services</a></li>
-                    <li><a href="{{ url('/') }}#organizations">Organizations</a></li>
+                    <li><a href="{{ url('/') }}#vision-mission">Visi & Misi</a></li>
+                    <li><a href="{{ url('/') }}#services">Servis</a></li>
+                    <li><a href="{{ url('/') }}#organizations">Organisasi</a></li>
                     <li><a href="{{ url('/') }}#portfolio">Portfolio</a></li>
                     <li>
                         <a href="{{ route('news') }}"
                             class="{{ request()->is('news') || request()->is('news/*') ? 'active' : '' }}">
-                            News
+                            Berita
                         </a>
                     </li>
-                    <li><a href="{{ url('/') }}#contact">Contact</a></li>
+                    <li><a href="{{ url('/') }}#contact">Kontak</a></li>
                     <li><a href="{{ route('login') }}">Login</a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
